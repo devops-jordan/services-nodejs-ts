@@ -1,0 +1,10 @@
+version: 1.0.0
+services:
+  auth-login:
+    build:
+      context: login/
+    ports:
+      - "4001:4001"
+    environment: 
+      - PORT=4001
+    restart: "always"
