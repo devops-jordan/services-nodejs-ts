@@ -1,10 +1,15 @@
 version: 1.0.0
 services:
-  auth-login:
-    build:
-      context: login/
+  keycloack:
+    image:  quay.io/keycloak/keycloak:26.1.2
+    container_name: keycloak
+    environment:
+      - KC_BOOTSTRAP_ADMIN_USERNAME=admin
+      - KC_BOOTSTRAP_ADMIN_PASSWORD=admin
     ports:
-      - "4001:4001"
-    environment: 
-      - PORT=4001
-    restart: "always"
+      - "8080:8080"
+    volumes:
+      # - ${pwd}/config/keycloak-keystore.jks:/etc/keycloak-keystore.jks
+      - ${pwd}/keycloack:/opt/keycloack/data
+    # command: ["start", "--hostname-strict=false", "--https-key-store-file=/etc/keycloak-keystore.jks"]
+    command: ["start-dev"]
